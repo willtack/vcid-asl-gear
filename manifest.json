@@ -1,0 +1,62 @@
+{
+	"name": "vcid-asl",
+	"label": "VCID-ASL: MATLAB-based ASL preprocessing",
+	"description": "Processes ASL data. Written for VCID project but can be used generally",
+	"version": "0.0.7_0.0.2",
+	"inputs": {
+		"api_key": {
+			"base": "api-key"
+		},
+		"asl": {
+			"base": "file",
+			"description": "Path to raw ASL image",
+			"optional": true
+		},
+		"m0": {
+			"base": "file",
+			"description": "Path to M0 image",
+			"optional": true
+		},
+		"mprage": {
+			"base": "file",
+			"description": "Path to highres structural image",
+			"optional": true
+		}
+	},
+	"config": {
+		"BIDS-acq": {
+			"default": "",
+			"description": "The acq- field of the input image filename. Leave blank if the correct file is distinguishable without an acq- field.",
+			"type": "string"
+		},
+		"BIDS-run": {
+			"default": "",
+			"description": "The run- field of the input image filename. Leave blank if there is only one run.",
+			"type": "string"
+		}
+	},
+	"environment": {
+		"FLYWHEEL": "/flywheel/v0",
+		"FSLDIR": "/usr/share/fsl/5.0",
+		"FSLMULTIFILEQUIT": "TRUE",
+    "FSLOUTPUTTYPE": "NIFTI_GZ",
+		"LANG": "C.UTF-8",
+		"LD_LIBRARY_PATH": "/usr/lib/fsl/5.0:/usr/local/MATLAB/MATLAB_Runtime/v96//runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v96//bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v96//sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v96//sys/opengl/lib/glnxa64",
+		"PATH": "/usr/share/fsl/5.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+	},
+	"command": "python /flywheel/v0/run.py",
+	"author": "William Tackett",
+	"maintainer": "William Tackett",
+	"license": "BSD-3-Clause",
+	"source": "https://github.com/willtack/vcid-asl-pipeline",
+	"environment": {"REQUESTS_CA_BUNDLE":"/etc/ssl/certs/ca-certificates.crt"},
+	"custom": {
+		"gear-builder": {
+			"category": "analysis",
+			"image": "willtack/vcid-asl-gear:0.0.7"
+		},
+		"flywheel": {
+			"suite": "BrainScienceCenter"
+		}
+	}
+}
